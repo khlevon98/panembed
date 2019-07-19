@@ -1,0 +1,13 @@
+@import "../../../assets/styles/helpers/functions";
+
+.App-header{
+  .nav-wrapper{
+    padding: 0 0.75rem;
+
+    .brand-logo{
+      .logo{
+        width: rem(60px);
+      }
+    }
+  }
+}

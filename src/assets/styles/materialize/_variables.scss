@@ -1,0 +1,37 @@
+// 20. Typography
+// ==========================================================================
+// Header Styles
+$h1-fontsize: em(45px);
+$h2-fontsize: em(35px);
+$h3-fontsize: em(30px);
+$h4-fontsize: em(25px);
+$h5-fontsize: em(20px);
+$h6-fontsize: em(15px);
+
+$colors: (
+  'materialize-red': $materialize-red,
+  'red': $red,
+  'pink': $pink,
+  'purple': $purple,
+  'deep-purple': $deep-purple,
+  'indigo': $indigo,
+  'blue': $blue,
+  'light-blue': $light-blue,
+  'cyan': $cyan,
+  'teal': $teal,
+  'green': $green,
+  'light-green': $light-green,
+  'lime': $lime,
+  'yellow': $yellow,
+  'amber': $amber,
+  'orange': $orange,
+  'deep-orange': $deep-orange,
+  'brown': $brown,
+  'blue-grey': $blue-grey,
+  'grey': $grey,
+  'shades': $shades,
+);
+
+//$primary-color: color("materialize-red", "lighten-2");
+//$primary-color-light: lighten($primary-color, 15%);
+//$primary-color-dark: darken($primary-color, 15%);

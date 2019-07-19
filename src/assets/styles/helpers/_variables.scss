@@ -1,0 +1,7 @@
+$browser-context: 16 !default; // Default
+
+/// Base path for assets (fonts, images...),
+/// should not include trailing slash
+/// @access public
+/// @type String
+$asset-base-path: '../' !default;
