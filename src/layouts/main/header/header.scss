@@ -1,13 +1,17 @@
-@import "../../../assets/styles/helpers/functions";
+@import '../../../assets/styles/helpers/functions';
 
-.App-header{
-  .nav-wrapper{
+.App-header {
+  .nav-wrapper {
     padding: 0 0.75rem;
 
-    .brand-logo{
-      .logo{
+    .brand-logo {
+      .logo {
         width: rem(60px);
       }
     }
+  }
+
+  nav ul a {
+    float: left;
   }
 }
