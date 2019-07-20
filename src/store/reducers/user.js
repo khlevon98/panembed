@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/user';
 
 const initialState = {
   current: {
-    isLoaded: false,
+    isLoaded: true,
     error: null,
     data: {},
   },
