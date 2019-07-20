@@ -1,15 +1,3 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import HomeRoute from './home-route';
 
-class Home extends React.Component {
-  render() {
-    console.log(this.props)
-    return (
-      <>
-        <h1>Hello World!</h1>
-      </>
-    );
-  }
-}
-
-export default connect()(Home);
+export default HomeRoute;
