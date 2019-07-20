@@ -26,7 +26,7 @@ function configureStore(preloadedState) {
 
   enhancers.push(applyMiddleware(...middleware));
   enhancers.push(reduxFirestore(firebaseConfig));
-  enhancers.push(reactReduxFirebase(firebaseConfig));
+  enhancers.push(reactReduxFirebase(firebaseConfig, { useFirestoreForProfile: true, userProfile: 'users' }));
 
   const store = createStore(
     createRootReducer(history),
