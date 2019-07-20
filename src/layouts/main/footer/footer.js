@@ -1,7 +1,6 @@
 import React from 'react';
 
 import './footer.scss';
-import { Footer } from 'react-materialize';
 
 const AppFooter = () => {
   const year = new Date().getFullYear();
