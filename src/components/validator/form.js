@@ -1,5 +1,9 @@
-import React from 'react';
-
 import { ValidatorForm } from 'react-form-validator-core';
 
-export default ValidatorForm;
+class Form extends ValidatorForm {}
+
+Form.addValidationRule('isPasswordMatch', (value = '', fieldValue = '') => {
+  return value.trim() === fieldValue.trim();
+});
+
+export default Form;
