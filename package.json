@@ -13,10 +13,6 @@
   "bugs": {
     "url": "https://github.com/khlevon98/panembed/issues"
   },
-  "engines": {
-    "npm": "6.9.0",
-    "node": "10.16.0"
-  },
   "dependencies": {
     "connected-react-router": "6.5.2",
     "firebase": "6.3.0",
