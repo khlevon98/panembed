@@ -1,3 +1,5 @@
+import { getExtension, makeId } from '../utils';
+
 class ApiService {
   constructor(firestore, firebase) {
     this._firestore = firestore;
@@ -19,8 +21,26 @@ class ApiService {
     return resp.data();
   };
 
-  createProject = async (data = {}) => {
-    return this._firestore.collection('projects').add(data);
+  createProject = async ({ title, image, ownerId, ownerName } = {}) => {
+    const fileName = `${ownerId}_${makeId(10)}.${getExtension(image.name)}`;
+
+    let resp = await this._firebase.uploadFile('/panoramas', image, undefined, {
+      name: fileName,
+    });
+
+    const imgUrl = await resp.uploadTaskSnapshot.ref.getDownloadURL();
+
+    resp = await this._firestore.collection('projects').add({
+      createDate: Date.now(),
+      image: imgUrl,
+      title,
+      ownerId,
+      ownerName,
+    });
+
+    console.log('file uploaded', resp);
+
+    return resp;
   };
 
   deleteProject = async (id = null) => {
