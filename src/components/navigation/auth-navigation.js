@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { withAuth } from '../hoc-helpers';
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { unAuthenticateUser } from '../../store/actions/auth';
 import { compose } from 'redux';
@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 const AuthNavigation = ({ signOut, history }) => {
   return (
     <>
+      <NavLink to="/project/create">Create project</NavLink>
       <a
         href="/"
         onClick={e => {
