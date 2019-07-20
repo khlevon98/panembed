@@ -16,8 +16,8 @@ const AppRoutes = ({ history }) => {
       <Switch>
         <RouteWithMainLayout path="/" component={Home} exact />
 
-        <RouteWithMainLayout path="/signin" component={SignIn} exact />
-        <RouteWithMainLayout path="/signup" component={SignUp} exact />
+        <RouteWithMainLayout path="/auth/signin" component={SignIn} exact />
+        <RouteWithMainLayout path="/auth/signup" component={SignUp} exact />
 
         <RouteWithMainLayout isPrivate path="/project/create" component={CreateProject} exact />
 
