@@ -31,7 +31,7 @@ class Field extends ValidatorComponent {
       <div className="input-field">
         <input {...rest} className={props.className + (!isValid ? ' invalid' : '')} />
         <label htmlFor="">{label}</label>
-        {!isValid ? <span className="helper-text">{getErrorMessage()}</span> : null}
+        {!isValid ? <span className="helper-text" data-error={getErrorMessage()} /> : null}
       </div>
     );
   };
