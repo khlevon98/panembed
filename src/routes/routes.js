@@ -23,7 +23,6 @@ const AppRoutes = ({ history }) => {
 
         <RouteWithMainLayout isPrivate path="/project/:id" component={ViewProject} exact />
 
-
         <RouteWithMainLayout component={NotFound} />
       </Switch>
     </ConnectedRouter>

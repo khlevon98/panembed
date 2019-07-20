@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 
 import { AppContainer } from 'react-hot-loader';
 
-import ErrorBoundary  from './components/error-boundary';
+import ErrorBoundary from './components/error-boundary';
 
 import Root from './routes';
 
