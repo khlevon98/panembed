@@ -6,7 +6,9 @@ import Viewer from './viewer';
 import Spinner from '../spinner';
 
 class PanViewer extends PureComponent {
-  container = React.createRef();
+  _containerRef = React.createRef();
+
+  _helperTm = null;
 
   state = {
     isLoaded: false,
@@ -15,7 +17,7 @@ class PanViewer extends PureComponent {
 
   componentDidMount() {
     const { src } = this.props;
-    const container = this.container.current;
+    const container = this._containerRef.current;
 
     this.viewer = new Viewer({
       src,
@@ -23,8 +25,6 @@ class PanViewer extends PureComponent {
         onLoad: this.handleLoad,
       },
     });
-
-    window.aa = this.viewer;
 
     container.append(this.viewer.getDomElement());
 
@@ -49,6 +49,7 @@ class PanViewer extends PureComponent {
 
   componentWillUnmount() {
     this.viewer.destroy();
+    clearTimeout(this._helperTm);
   }
 
   render() {
@@ -64,7 +65,7 @@ class PanViewer extends PureComponent {
     const loader = !isLoaded ? <Spinner /> : null;
 
     return (
-      <div className="pan-viewer" ref={this.container}>
+      <div className="pan-viewer" ref={this._containerRef}>
         {loader}
         {helper}
       </div>
@@ -76,7 +77,7 @@ class PanViewer extends PureComponent {
       isLoaded: true,
     });
 
-    setTimeout(() => {
+    this._helperTm = setTimeout(() => {
       this.setState({
         isShownHelper: false,
       });
