@@ -11,7 +11,7 @@ PUBLIC_URL = PUBLIC_URL || window.location.origin;
 
 const GetCodeModal = ({ onClosed, onOpened, isOpened, projectId }) => {
   const url = `${PUBLIC_URL}/embed/${projectId}`;
-  const iframe = `<iframe src="${url}" frameborder="0"></iframe>`;
+  const iframe = `<iframe src="${url}" name="PanEmbed" allowfullscreen="true" frameborder="0" align="top" height="600px" width="800px" scrolling="none"></iframe>`;
 
   const copyToClipboard = ({ target }) => {
     target.select();
