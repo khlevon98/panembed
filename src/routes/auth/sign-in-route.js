@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import { compose } from 'redux';
 
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 import { authenticateUser } from '../../store/actions/auth';
 
@@ -60,6 +60,12 @@ class SignInRoute extends React.Component {
                 <button type="submit" className="btn btn-large w-100" disabled={!auth.isLoaded}>
                   Sign Up
                 </button>
+              </div>
+
+              <div className="row center">
+                <p>
+                  No account? <Link className="teal-text" to="/auth/signup">Sign Up</Link>
+                </p>
               </div>
 
               {auth.error && auth.error.message ? (
