@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import { withAuth } from '../../components/hoc-helpers';
 
 const ViewMyProjects = props => {
-  const [{ isDidAction, showSuccessMessage }, setHelperState] = useState({
+  const [{ isDidAction /* , showSuccessMessage */ }, setHelperState] = useState({
     isDidAction: false,
     showSuccessMessage: false,
   });
