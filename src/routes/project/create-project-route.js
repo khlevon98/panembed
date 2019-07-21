@@ -14,131 +14,138 @@ import ErrorBoundary from '../../components/error-boundary';
 import ValidatorService from '../../services/validator-service';
 import { MBTobytes } from '../../utils';
 
-class CreateProjectRoute extends React.Component {
-  state = {
+const CreateProjectRoute = props => {
+  const [state, setState] = React.useState({
     title: '',
-    image: '',
+    description: '',
     imageFile: '',
-  };
+  });
 
-  render() {
-    const {
-      project: { isLoaded, error },
-    } = this.props;
-    return (
-      <section className="section container">
-        <div className="row">
-          <h2 className="center">Create project</h2>
-        </div>
-        <div className="row">
-          <ErrorBoundary>
-            <Form className="col s12" onSubmit={this.handleSubmit}>
-              <div className="row">
-                <Field
-                  value={this.state.title}
-                  onChange={this.handleChange}
-                  validators={[ValidatorService.isRequired().rule]}
-                  errorMessages={[ValidatorService.isRequired().message]}
-                >
-                  {({ props, isValid, getErrorMessage }) => {
-                    const className = `${!isValid ? 'invalid' : ''}`;
-                    return (
-                      <div className="input-field col s12">
-                        <input {...props} type="text" name="title" id="field-title" className={className} />
-                        <label htmlFor="field-title">Project title</label>
-                        {!isValid ? <span className="helper-text" data-error={getErrorMessage()} /> : null}
-                      </div>
-                    );
-                  }}
-                </Field>
-              </div>
+  console.log(state);
 
-              <div className="row">
-                <FileField
-                  value={this.state.imageFile}
-                  onChange={this.handleChange}
-                  validators={[
-                    ValidatorService.isRequired().rule,
-                    ValidatorService.isFile().rule,
-                    ValidatorService.allowedExtensions('image/png,image/jpeg').rule,
-                    ValidatorService.maxFileSize(MBTobytes(2)).rule,
-                  ]}
-                  errorMessages={[
-                    ValidatorService.isRequired().message,
-                    ValidatorService.isFile().message,
-                    ValidatorService.allowedExtensions('image/png,image/jpeg').message,
-                    ValidatorService.maxFileSize(MBTobytes(2)).message,
-                  ]}
-                >
-                  {({ props, isValid, getErrorMessage }) => {
-                    const className = `file-path ${!isValid ? 'invalid' : ''}`;
-                    return (
-                      <div className="file-field input-field col s12">
-                        <div className="btn">
-                          <span>File</span>
-                          <input type="file" {...props} name="image" id="field-image" />
-                        </div>
-                        <div className="file-path-wrapper">
-                          <input className={className} type="text" />
-                          {!isValid ? <span className="helper-text" data-error={getErrorMessage()} /> : null}
-                        </div>
-                      </div>
-                    );
-                  }}
-                </FileField>
-              </div>
+  const {
+    auth: { uid, user },
+    project: { isLoaded, error },
+  } = props;
 
-              <div className="row">
-                <button type="submit" className="btn btn-large w-100" disabled={!isLoaded}>
-                  Create
-                </button>
-              </div>
-
-              {error && error.message ? (
-                <div className="row">
-                  <div className="col s12">
-                    <div className="card red">
-                      <div className="card-content white-text">
-                        <p>{error.message}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ) : null}
-            </Form>
-          </ErrorBoundary>
-        </div>
-      </section>
-    );
-  }
-
-  handleChange = e => {
+  const handleChange = e => {
     const { name, value, files } = e.target;
 
-    this.setState({
+    setState({
+      ...state,
       [name]: value,
       [`${name}File`]: files ? files[0] : undefined,
     });
   };
 
-  handleSubmit = e => {
-    const { title, imageFile: image } = this.state;
+  const handleSubmit = e => {
+    const { title, description, imageFile: image } = state;
 
-    const {
-      auth: { uid, user },
-    } = this.props;
-
-    this.props.createProject({
+    props.createProject({
       title,
+      description,
       image,
       ownerId: uid,
       ownerName: `${user.firstName} ${user.lastName}`,
     });
     e.preventDefault();
   };
-}
+
+  return (
+    <section className="section container">
+      <div className="row">
+        <h2 className="center">Create project</h2>
+      </div>
+
+      <div className="row">
+        <ErrorBoundary>
+          <Form className="col s12" onSubmit={handleSubmit}>
+            <div className="row">
+              <Field
+                label="Project title"
+                type="text"
+                name="title"
+                id="field-title"
+                value={state.title}
+                onChange={handleChange}
+                validators={[ValidatorService.isRequired().rule]}
+                errorMessages={[ValidatorService.isRequired().message]}
+              />
+            </div>
+
+            <div className="row">
+              <Field
+                value={state.description}
+                onChange={handleChange}
+                validators={[ValidatorService.isRequired().rule]}
+                errorMessages={[ValidatorService.isRequired().message]}
+              >
+                {({ props: inputProps, isValid, getErrorMessage }) => {
+                  const className = `materialize-textarea ${!isValid ? 'invalid' : ''}`;
+                  return (
+                    <div className="input-field">
+                      <textarea {...inputProps} name="description" id="field-description" className={className} />
+                      <label htmlFor="field-description">Project description</label>
+                      {!isValid ? <span className="helper-text" data-error={getErrorMessage()} /> : null}
+                    </div>
+                  );
+                }}
+              </Field>
+            </div>
+
+            <div className="row">
+              <FileField
+                label="File"
+                name="image"
+                id="field-image"
+                value={state.imageFile}
+                onChange={handleChange}
+                validators={[
+                  ValidatorService.isRequired().rule,
+                  ValidatorService.isFile().rule,
+                  ValidatorService.allowedExtensions('image/png,image/jpeg').rule,
+                  ValidatorService.maxFileSize(MBTobytes(2)).rule,
+                ]}
+                errorMessages={[
+                  ValidatorService.isRequired().message,
+                  ValidatorService.isFile().message,
+                  ValidatorService.allowedExtensions('image/png,image/jpeg').message,
+                  ValidatorService.maxFileSize(MBTobytes(2)).message,
+                ]}
+              />
+            </div>
+
+            <div className="row">
+              <button type="submit" className="btn btn-large w-100" disabled={!isLoaded}>
+                Create
+              </button>
+            </div>
+
+            {error && error.message ? (
+              <div className="row">
+                <div className="col s12">
+                  <div className="card red">
+                    <div className="card-content white-text">
+                      <p>{error.message}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+          </Form>
+        </ErrorBoundary>
+      </div>
+    </section>
+  );
+};
 
 CreateProjectRoute.propTypes = {
+  project: PropTypes.shape({
+    isLoaded: PropTypes.bool,
+    error: PropTypes.shape({
+      message: PropTypes.string,
+    }),
+  }).isRequired,
   auth: PropTypes.shape({
     uid: PropTypes.string,
     user: PropTypes.shape({
