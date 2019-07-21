@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import './project-details.scss';
 import PanViewer from '../pan-viewet';
+import { GetCodeModal } from '../modal';
 
 const ProjectDetail = props => {
   const {
-    data: { image, title, description, ownerName, createDate },
+    data: { id, image, title, description, ownerName, createDate },
   } = props;
+
+  const [{ isOpened, openedProjectId }, setOpened] = useState({
+    isOpened: false,
+    openedProjectId: '',
+  });
+
+  const handleGetCode = () => {
+    setOpened({ isOpened: true, openedProjectId: id });
+  };
 
   const date = new Date(createDate.toDate()).toUTCString();
 
@@ -24,8 +34,22 @@ const ProjectDetail = props => {
           Created by <b>{ownerName}</b> at {date}
         </span>
 
+        <p className=" mt-3">
+          <button className="btn teal waves-effect" onClick={handleGetCode} type="button">
+            Get code
+          </button>
+        </p>
+
         <p className=" mt-3">{description}</p>
       </div>
+
+      <GetCodeModal
+        isOpened={isOpened}
+        projectId={openedProjectId}
+        onClosed={() => {
+          setOpened({ isOpened: false, openedProjectId: '' });
+        }}
+      />
     </section>
   );
 };

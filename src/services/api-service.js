@@ -7,7 +7,7 @@ class ApiService {
   }
 
   getProjects = async (query = []) => {
-    let resp = this._firestore.collection('projects');
+    let resp = this._firestore.collection('projects').orderBy('createDate', 'desc');
     query.forEach(value => {
       resp = resp.where(...value);
     });
@@ -23,7 +23,7 @@ class ApiService {
       .doc(id)
       .get();
 
-    return resp.data();
+    return { id, ...resp.data() };
   };
 
   createProject = async ({ title, description, image, ownerId, ownerName } = {}) => {

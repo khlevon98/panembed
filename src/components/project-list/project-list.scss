@@ -23,6 +23,7 @@
 
   .project-list-item-actions {
     width: auto !important;
+
     li {
       a {
         white-space: nowrap;
@@ -32,6 +33,7 @@
 
   .card-image {
     height: rem(240px) !important;
+
     .LazyLoad {
       height: 100%;
       overflow: hidden;
