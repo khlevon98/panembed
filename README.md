@@ -1,6 +1,6 @@
 # About
 
-This is small project named [PanEmbed](https://panembed.herokuapp.com). This is small project named PanEmbed.
+This is small project named [PanEmbed](https://panembed.herokuapp.com).
 
 Idea meaning in that user can upload his panorama photo and get embed code for that photo.
 
@@ -23,6 +23,7 @@ Front-End
 
     ReactJS
     ReduxJS
+    React Router
     Regl
     MaterializeCSS
 
