@@ -4,12 +4,12 @@ const initialState = {
   current: {
     isLoaded: true,
     error: null,
-    data: {},
+    data: null,
   },
   list: {
     isLoaded: true,
     error: null,
-    data: {},
+    data: [],
   },
 };
 

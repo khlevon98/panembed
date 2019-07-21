@@ -4,7 +4,7 @@ const initialState = {
   current: {
     isLoaded: true,
     error: null,
-    data: {},
+    data: null,
   },
 };
 
