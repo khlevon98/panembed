@@ -31,7 +31,7 @@ class SignInRoute extends React.Component {
         </div>
         <div className="row">
           <ErrorBoundary>
-            <Form className="col s12" onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit}>
               <div className="row">
                 <Field
                   label="Email"

@@ -2,6 +2,12 @@
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+
+  form{
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .App-content {
