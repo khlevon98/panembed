@@ -34,111 +34,68 @@ class SignUpRoute extends React.Component {
             <Form className="col s12" onSubmit={this.handleSubmit}>
               <div className="row">
                 <Field
+                  label="First name"
+                  type="text"
+                  name="firstName"
+                  id="field-firstName"
                   value={this.state.firstName}
                   onChange={this.handleChange}
                   validators={[ValidatorService.isRequired().rule]}
                   errorMessages={[ValidatorService.isRequired().message]}
-                >
-                  {({ props, isValid, getErrorMessage }) => {
-                    const className = `${!isValid ? 'invalid' : ''}`;
-                    return (
-                      <div className="input-field col s12">
-                        <input {...props} type="text" name="firstName" id="field-firstName" className={className} />
-                        <label htmlFor="field-firstName">First name</label>
-                        {!isValid ? <span className="helper-text" data-error={getErrorMessage()} /> : null}
-                      </div>
-                    );
-                  }}
-                </Field>
+                />
               </div>
 
               <div className="row">
                 <Field
+                  label="Last name"
+                  type="text"
+                  name="lastName"
+                  id="field-lastName"
                   value={this.state.lastName}
                   onChange={this.handleChange}
                   validators={[ValidatorService.isRequired().rule]}
                   errorMessages={[ValidatorService.isRequired().message]}
-                >
-                  {({ props, isValid, getErrorMessage }) => {
-                    const className = `${!isValid ? 'invalid' : ''}`;
-                    return (
-                      <div className="input-field col s12">
-                        <input {...props} type="text" name="lastName" id="field-lastName" className={className} />
-                        <label htmlFor="field-lastName">Last name</label>
-                        {!isValid ? <span className="helper-text" data-error={getErrorMessage()} /> : null}
-                      </div>
-                    );
-                  }}
-                </Field>
+                />
               </div>
               <div className="row">
                 <Field
+                  label="Email"
+                  type="email"
+                  name="email"
+                  id="field-email"
                   value={this.state.email}
                   onChange={this.handleChange}
                   validators={[ValidatorService.isRequired().rule, ValidatorService.isEmail().rule]}
                   errorMessages={[ValidatorService.isRequired().message, ValidatorService.isEmail().message]}
-                >
-                  {({ props, isValid, getErrorMessage }) => {
-                    const className = `${!isValid ? 'invalid' : ''}`;
-                    return (
-                      <div className="input-field col s12">
-                        <input {...props} type="email" name="email" id="field-email" className={className} />
-                        <label htmlFor="field-email">Email</label>
-                        {!isValid ? <span className="helper-text" data-error={getErrorMessage()} /> : null}
-                      </div>
-                    );
-                  }}
-                </Field>
+                />
               </div>
 
               <div className="row">
                 <Field
+                  label="Password"
+                  type="password"
+                  name="password"
+                  id="field-password"
                   value={this.state.password}
                   onChange={this.handleChange}
                   validators={[ValidatorService.isRequired().rule]}
                   errorMessages={[ValidatorService.isRequired().message]}
-                >
-                  {({ props, isValid, getErrorMessage }) => {
-                    const className = `${!isValid ? 'invalid' : ''}`;
-
-                    return (
-                      <div className="input-field col s12">
-                        <input {...props} type="password" name="password" id="field-password" className={className} />
-                        <label htmlFor="field-password">Password</label>
-                        {!isValid ? <span className="helper-text" data-error={getErrorMessage()} /> : null}
-                      </div>
-                    );
-                  }}
-                </Field>
+                />
               </div>
               <div className="row">
                 <Field
+                  label="Reenter password"
+                  type="password"
+                  name="rePassword"
+                  id="field-rePassword"
                   value={this.state.rePassword}
                   onChange={this.handleChange}
                   validators={[ValidatorService.isPasswordMatch(this.state.password).rule]}
                   errorMessages={[ValidatorService.isPasswordMatch(this.state.password).message]}
-                >
-                  {({ props, isValid, getErrorMessage }) => {
-                    const className = `${!isValid ? 'invalid' : ''}`;
-
-                    return (
-                      <div className="input-field col s12">
-                        <input
-                          {...props}
-                          type="password"
-                          name="rePassword"
-                          id="field-rePassword"
-                          className={className}
-                        />
-                        <label htmlFor="field-rePassword">Password</label>
-                        {!isValid ? <span className="helper-text" data-error={getErrorMessage()} /> : null}
-                      </div>
-                    );
-                  }}
-                </Field>
+                />
               </div>
 
-              <div className="row">
+              <div className="row center">
                 <button type="submit" className="btn btn-large w-100" disabled={!auth.isLoaded}>
                   Sign Up
                 </button>
