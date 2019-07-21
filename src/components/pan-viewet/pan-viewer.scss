@@ -1,0 +1,53 @@
+@import '../../assets/styles/helpers/functions';
+
+@keyframes viewerHelper {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  20% {
+    transform: rotateZ(-45deg);
+  }
+  40% {
+    transform: rotateZ(0deg);
+  }
+  60% {
+    transform: rotateZ(45deg);
+  }
+  80% {
+    transform: rotateZ(0deg);
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.pan-viewer {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  .viewer-helper {
+    display: block;
+    position: absolute;
+    z-index: 99999;
+    bottom: rem(10px);
+    left: 50%;
+    transform: translateX(-50%);
+
+    .icon {
+      font-size: rem(50px);
+      color: #fff;
+      animation: viewerHelper cubic-bezier(0.23, 1, 0.32, 1) infinite;
+      animation-fill-mode: forwards;
+      animation-duration: 5.5s;
+      animation-delay: 0.5s;
+    }
+  }
+}
