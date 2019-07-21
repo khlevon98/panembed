@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -14,19 +14,17 @@ import ErrorBoundary from '../../components/error-boundary';
 import ValidatorService from '../../services/validator-service';
 import { MBTobytes } from '../../utils';
 
-const CreateProjectRoute = props => {
-  const [state, setState] = React.useState({
+const CreateProjectRoute = ({ auth: { uid, user }, project: { isLoaded, error }, ...props }) => {
+  const [{ isDidAction, showSuccessMessage }, setHelperState] = useState({
+    isDidAction: false,
+    showSuccessMessage: false,
+  });
+
+  const [state, setState] = useState({
     title: '',
     description: '',
     imageFile: '',
   });
-
-  console.log(state);
-
-  const {
-    auth: { uid, user },
-    project: { isLoaded, error },
-  } = props;
 
   const handleChange = e => {
     const { name, value, files } = e.target;
@@ -48,8 +46,39 @@ const CreateProjectRoute = props => {
       ownerId: uid,
       ownerName: `${user.firstName} ${user.lastName}`,
     });
+
+    setHelperState({
+      isDidAction: true,
+      showSuccessMessage: false,
+    });
     e.preventDefault();
   };
+
+  useEffect(() => {
+    if (isDidAction) {
+      if (isLoaded && !error) {
+        // delete success case
+        // console.log('success');
+
+        setHelperState({
+          isDidAction: false,
+          showSuccessMessage: true,
+        });
+
+        setState({
+          title: '',
+          description: '',
+          imageFile: '',
+        });
+      } /* else if (error) {
+        // delete error case
+        // console.log('error', error);
+      } else {
+        // delete in progress case
+        // console.log('in progress');
+      } */
+    }
+  }, [isDidAction, isLoaded, error]);
 
   return (
     <section className="section container">
@@ -127,6 +156,18 @@ const CreateProjectRoute = props => {
                   <div className="card red">
                     <div className="card-content white-text">
                       <p>{error.message}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+
+            {showSuccessMessage ? (
+              <div className="row">
+                <div className="col s12">
+                  <div className="card teal">
+                    <div className="card-content white-text">
+                      <p>Your project successfully created.</p>
                     </div>
                   </div>
                 </div>
