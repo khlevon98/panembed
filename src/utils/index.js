@@ -12,3 +12,39 @@ export const makeId = length => {
   }
   return result;
 };
+
+export const getPathFromUrl = url => {
+  return url.split('?')[0];
+};
+
+export const DEG2RAD = Math.PI / 180;
+export const RAD2DEG = 180 / Math.PI;
+export const DOUBLE_PI = Math.PI * 2;
+export const HALF_PI = Math.PI / 2;
+
+export const degToRad = degrees => {
+  return degrees * DEG2RAD;
+};
+
+export const radToDeg = radians => {
+  return radians * RAD2DEG;
+};
+
+export const offset = el => {
+  const rect = el.getBoundingClientRect();
+  const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  return { top: rect.top + scrollTop, left: rect.left + scrollLeft };
+};
+
+// const loadImage = path =>
+//   new Promise(resolve => {
+//     const img = new Image();
+//     img.crossOrigin = 'anonymous';
+//     img.onload = () => resolve(img);
+//     img.onerror = () => resolve(null);
+//
+//     img.src = path;
+//   });
+
+// const loadImages = (...paths) => Promise.all(paths.map(loadImage));
