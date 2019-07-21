@@ -12,32 +12,75 @@ import { ProjectsNotFound } from '../not-found';
 const ProjectList = props => {
   const { data, showActions, userId } = props;
 
-  const items = data.map(({ id, title, thumb, ownerId }) => (
-    <div className="col s12 m6 l4" key={id}>
-      <div className="card">
-        <div className="card-image">
-          <Image src={thumb} alt={title} />
-          {showActions ? (
-            <ProjectActions
-              projectOwnerId={ownerId}
-              userId={userId}
-              onGet={props.handleGet}
-              onDelete={() => props.handleDelete(id)}
-            >
-              <button type="button" className="btn-floating halfway-fab waves-effect waves-light blue-grey">
-                <i className="material-icons">more_vert</i>
-              </button>
-            </ProjectActions>
-          ) : null}
-        </div>
-        <div className="card-content">
-          <p>
-            <Link className="blue-grey-text" to={`/projects/${id}`}>
-              {title}
-            </Link>
-          </p>
-        </div>
+  // const iterator = makeRangeIterator({ data, step: 3 });
+
+  // let row = iterator.next();
+  // const items = [];
+
+  /* while (!row.done) {
+    const rowData = row.value;
+
+    items.push(
+      <div className="row" key={rowData.index}>
+        {rowData.data.map(({ id, title, thumb, ownerId }) => (
+          <div className="col s12 m6 l4" key={id}>
+            <div className="card">
+              <div className="card-image">
+                <Image src={thumb} alt={title} />
+                {showActions ? (
+                  <ProjectActions
+                    projectOwnerId={ownerId}
+                    userId={userId}
+                    onGet={props.handleGet}
+                    onDelete={() => props.handleDelete(id)}
+                  >
+                    <button type="button" className="btn-floating halfway-fab waves-effect waves-light blue-grey">
+                      <i className="material-icons">more_vert</i>
+                    </button>
+                  </ProjectActions>
+                ) : null}
+              </div>
+              <div className="card-content">
+                <p>
+                  <Link className="blue-grey-text" to={`/projects/${id}`}>
+                    {title}
+                  </Link>
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
+    );
+    row = iterator.next();
+  } */
+
+  const items = data.map(({ id, title, thumb, ownerId }) => (
+    <div className="project-list-item card" key={id}>
+      {/* <div className="card"> */}
+      <div className="card-image">
+        <Image src={thumb} alt={title} />
+        {showActions ? (
+          <ProjectActions
+            projectOwnerId={ownerId}
+            userId={userId}
+            onGet={props.handleGet}
+            onDelete={() => props.handleDelete(id)}
+          >
+            <button type="button" className="btn-floating halfway-fab waves-effect waves-light blue-grey">
+              <i className="material-icons">more_vert</i>
+            </button>
+          </ProjectActions>
+        ) : null}
+      </div>
+      <div className="card-content">
+        <p>
+          <Link className="blue-grey-text" to={`/projects/${id}`}>
+            {title}
+          </Link>
+        </p>
+      </div>
+      {/* </div> */}
     </div>
   ));
 
