@@ -23,7 +23,7 @@ class ApiService {
       .doc(id)
       .get();
 
-    return resp.data();
+    return { id, ...resp.data() };
   };
 
   createProject = async ({ title, description, image, ownerId, ownerName } = {}) => {
