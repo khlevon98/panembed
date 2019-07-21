@@ -8,8 +8,8 @@ import { createBrowserHistory } from 'history';
 
 import createRootReducer from '../store/reducers';
 
-import { reduxFirestore, getFirestore } from 'redux-firestore';
-import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
+import { getFirestore, reduxFirestore } from 'redux-firestore';
+import { getFirebase, reactReduxFirebase } from 'react-redux-firebase';
 
 import firebaseConfig from './firebase';
 
