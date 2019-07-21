@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 
 import { Divider, Dropdown } from 'react-materialize';
 
-const ProjectActions = ({ children, projectOwnerId, userId, onGet, onDelete, ...rest }) => {
+const ProjectActions = ({ children, projectOwnerId, userId, onGetCode, onDelete, ...rest }) => {
   const isUserProjectOwner = projectOwnerId === userId;
 
   let actions = [
-    <a href="#!" onClick={onGet} key="get_embed">
-      Get
+    <a href="#!" onClick={onGetCode} key="get_code">
+      Get code
     </a>,
   ];
 
@@ -40,7 +40,7 @@ ProjectActions.propTypes = {
   children: PropTypes.node.isRequired,
   projectOwnerId: PropTypes.string.isRequired,
   userId: PropTypes.string,
-  onGet: PropTypes.func.isRequired,
+  onGetCode: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
 
