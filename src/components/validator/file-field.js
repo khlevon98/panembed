@@ -18,17 +18,21 @@ class FileField extends ValidatorComponent {
 
     const { isValid } = this.state;
 
-    return renderField({
-      isValid,
-      getErrorMessage: this.getErrorMessage,
-      props: rest,
-    });
+    return renderField(
+      {
+        isValid,
+        getErrorMessage: this.getErrorMessage,
+        props: rest,
+      },
+      value
+    );
   }
 
-  renderField = ({ props, isValid, getErrorMessage }) => {
+  renderField = ({ props, isValid, getErrorMessage }, value = {}) => {
     const { label, className, ...rest } = props;
 
-    const classNames = `${className} file-path ${!isValid ? 'invalid' : ''}`;
+    const classNames = `${className} d-none file-path ${!isValid ? 'invalid' : ''}`;
+
     return (
       <div className="file-field input-field">
         <div className="btn">
@@ -36,7 +40,8 @@ class FileField extends ValidatorComponent {
           <input type="file" {...rest} />
         </div>
         <div className="file-path-wrapper">
-          <input className={classNames} type="text" />
+          <input type="text" className={classNames} />
+          <div className="fake-input">{value.name}</div>
           {!isValid ? <span className="helper-text" data-error={getErrorMessage()} /> : null}
         </div>
       </div>

@@ -12,11 +12,18 @@ import PropTypes from 'prop-types';
 import { withAuth } from '../../components/hoc-helpers';
 
 const ViewMyProjects = props => {
-  const [isDidAction, setIsDidAction] = useState(false);
+  const [{ isDidAction /* , showSuccessMessage */ }, setHelperState] = useState({
+    isDidAction: false,
+    showSuccessMessage: false,
+  });
 
   const handleDelete = id => {
-    setIsDidAction(true);
     props.deleteProject(id);
+
+    setHelperState({
+      isDidAction: true,
+      showSuccessMessage: false,
+    });
   };
 
   const {
@@ -32,7 +39,6 @@ const ViewMyProjects = props => {
     if (!isDidAction) {
       // update projects list first time and after delete
       getProjects([['ownerId', '==', uid]]);
-      console.log('get list ');
     }
   }, [isDidAction, getProjects, uid]);
 
@@ -40,15 +46,19 @@ const ViewMyProjects = props => {
     if (isDidAction) {
       if (deleteIsLoaded && !deleteError) {
         // delete success case
-        console.log('delete success');
-        setIsDidAction(false);
-      } else if (deleteError) {
+        // console.log('success');
+
+        setHelperState({
+          isDidAction: false,
+          showSuccessMessage: true,
+        });
+      } /* else if (error) {
         // delete error case
-        console.log('delete error', deleteError);
+        // console.log('error', error);
       } else {
         // delete in progress case
-        console.log('in progress');
-      }
+        // console.log('in progress');
+      } */
     }
   }, [isDidAction, deleteIsLoaded, deleteError]);
 

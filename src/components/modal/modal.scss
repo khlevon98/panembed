@@ -1,0 +1,25 @@
+@import '../../assets/styles/helpers/functions';
+
+.get-code-modal {
+  .code {
+    display: block;
+    border: 1px #e8e8e8 solid;
+    border-left: 6px #009688 solid;
+    letter-spacing: 0px;
+    -webkit-font-feature-settings: none;
+    font-feature-settings: none;
+    -webkit-font-variant-ligatures: none;
+    font-variant-ligatures: none;
+
+    resize: vertical;
+    max-height: rem(100px);
+    //height: fit-content;
+
+
+    padding: rem(5px) rem(15px);
+
+    font-size: 20px;
+    vertical-align: middle;
+    //line-height: 1;
+  }
+}

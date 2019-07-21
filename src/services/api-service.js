@@ -45,16 +45,23 @@ class ApiService {
       description,
       ownerId,
       ownerName,
+      fileName,
     });
 
     return resp;
   };
 
   deleteProject = async (id = null) => {
-    const resp = await this._firestore
-      .collection('projects')
-      .doc(id)
-      .delete();
+    const doc = await this._firestore.collection('projects').doc(id);
+
+    let resp = await doc.get();
+
+    resp = resp.data();
+
+    await this._firebase.deleteFile(`panoramas/${resp.fileName}`);
+    await this._firebase.deleteFile(`panoramas/thumb-400-${resp.fileName}`);
+
+    resp = await doc.delete();
 
     return resp;
   };

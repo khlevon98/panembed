@@ -37,6 +37,14 @@ export const offset = el => {
   return { top: rect.top + scrollTop, left: rect.left + scrollLeft };
 };
 
+export function* makeRangeIterator({ data = [], start = 0, end = data.length, step = 1 }) {
+  let index = 0;
+
+  for (let i = start; i < end; i += step) {
+    yield { data: data.slice(i, i + step), index: index++ };
+  }
+}
+
 // const loadImage = path =>
 //   new Promise(resolve => {
 //     const img = new Image();

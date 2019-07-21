@@ -31,6 +31,7 @@ class Viewer {
 
   destroy() {
     this.stop();
+    this._callbacks = {};
   }
 
   start() {
