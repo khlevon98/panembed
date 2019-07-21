@@ -33,7 +33,7 @@ export const fetchProjects = query => (dispatch, getState, { getFirebase, getFir
 
   Api.getProjects(query)
     .then(payload => {
-      dispatch(createAction(FETCH_PROJECTS_SUCCESS, payload.data));
+      dispatch(createAction(FETCH_PROJECTS_SUCCESS, payload));
     })
     .catch(payload => {
       dispatch(createAction(FETCH_PROJECTS_FAILURE, ErrorService.parse(payload)));
@@ -47,7 +47,7 @@ export const fetchProject = id => (dispatch, getState, { getFirebase, getFiresto
 
   Api.getProject(id)
     .then(payload => {
-      dispatch(createAction(FETCH_PROJECT_SUCCESS, payload.data));
+      dispatch(createAction(FETCH_PROJECT_SUCCESS, payload));
     })
     .catch(payload => {
       dispatch(createAction(FETCH_PROJECT_FAILURE, ErrorService.parse(payload)));
@@ -75,7 +75,7 @@ export const deleteProject = id => (dispatch, getState, { getFirebase, getFirest
 
   Api.deleteProject(id)
     .then(payload => {
-      dispatch(createAction(DELETE_PROJECT_SUCCESS, payload.data));
+      dispatch(createAction(DELETE_PROJECT_SUCCESS, payload));
     })
     .catch(payload => {
       dispatch(createAction(DELETE_PROJECT_FAILURE, ErrorService.parse(payload)));
