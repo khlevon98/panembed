@@ -1,12 +1,14 @@
 @import '../../assets/styles/helpers/functions';
 
 .project-list {
-  column-width: rem(320px);
-  column-gap: rem(15px);
+  &.with-content {
+    column-width: rem(320px);
+    column-gap: rem(15px);
 
-  @media screen and (max-width: 650px) {
-    & {
-      column-gap: 0;
+    @media screen and (max-width: 650px) {
+      & {
+        column-gap: 0;
+      }
     }
   }
 

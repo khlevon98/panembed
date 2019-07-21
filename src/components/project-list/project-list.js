@@ -101,7 +101,7 @@ const ProjectList = props => {
   ));
 
   return (
-    <div className="row project-list min-h-100">
+    <div className={`row project-list  min-h-100 ${items.length ? 'with-content' : ''}`}>
       <ErrorBoundary>
         {data.length ? items : <ProjectsNotFound />}
         <GetCodeModal
