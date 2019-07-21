@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import { compose } from 'redux';
 
-import { withRouter, Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import { authenticateUser } from '../../store/actions/auth';
 
@@ -64,7 +64,10 @@ class SignInRoute extends React.Component {
 
               <div className="row center">
                 <p>
-                  No account? <Link className="teal-text" to="/auth/signup">Sign Up</Link>
+                  No account?{' '}
+                  <Link className="teal-text" to="/auth/signup">
+                    Sign Up
+                  </Link>
                 </p>
               </div>
 

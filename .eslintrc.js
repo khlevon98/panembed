@@ -1,11 +1,7 @@
 module.exports = {
   parser: 'babel-eslint',
 
-  extends: [
-    'airbnb', 
-    'prettier',
-    'prettier/react'
-  ],
+  extends: ['airbnb', 'prettier', 'prettier/react'],
 
   plugins: ['prettier', 'react'],
 
@@ -68,7 +64,7 @@ module.exports = {
     'react/jsx-one-expression-per-line': 'off',
     'react/no-array-index-key': 'off',
     'react/sort-comp': 'off',
-    'import/order': 'off'
+    'import/order': 'off',
   },
 
   settings: {
