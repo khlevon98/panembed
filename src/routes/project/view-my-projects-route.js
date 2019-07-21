@@ -115,7 +115,7 @@ const enhance = compose(
     mapDispatchToProps
   ),
   withRouter,
-  withAuth({ redirectTo: '/auth/signin' })
+  withAuth({ redirectTo: '/auth/signin', showLoader: true })
 );
 
 export default enhance(ViewMyProjects);

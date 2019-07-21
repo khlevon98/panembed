@@ -70,7 +70,6 @@ const CreateProjectRoute = ({ auth: { uid, user }, project: { isLoaded, error },
           description: '',
           imageFile: '',
         });
-
       } /* else if (error) {
         // delete error case
         // console.log('error', error);
@@ -89,7 +88,7 @@ const CreateProjectRoute = ({ auth: { uid, user }, project: { isLoaded, error },
 
       <div className="row">
         <ErrorBoundary>
-          <Form className="col s12" onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit}>
             <div className="row">
               <Field
                 label="Project title"
@@ -217,7 +216,7 @@ const enhance = compose(
     mapDispatchToProps
   ),
   withRouter,
-  withAuth({ redirectTo: '/auth/signin' })
+  withAuth({ redirectTo: '/auth/signin', showLoader: true })
 );
 
 export default enhance(CreateProjectRoute);

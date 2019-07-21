@@ -7,7 +7,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import Spinner from '../spinner';
 
-const withAuth = ({ render = true, redirectTo = null } = {}) => View => {
+const withAuth = ({ render = true, redirectTo = null, showLoader = false } = {}) => View => {
   function mapStateToProps(state) {
     return {
       auth: {
@@ -40,7 +40,7 @@ const withAuth = ({ render = true, redirectTo = null } = {}) => View => {
         const isAuthorized = !!uid;
 
         if (!isLoaded) {
-          return <Spinner />;
+          return showLoader ? <Spinner /> : null;
         }
 
         let result = redirectTo ? <Redirect to={redirectTo} /> : null;
