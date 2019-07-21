@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 const AuthNavigation = ({ signOut, history }) => {
   return (
     <>
+      <NavLink to="/">Projects</NavLink>
       <NavLink to="/projects/my">My projects</NavLink>
       <NavLink to="/projects/create">Create project</NavLink>
       <a

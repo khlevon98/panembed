@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 const DefaultNavigation = () => {
   return (
     <>
+      <NavLink to="/">Projects</NavLink>
       <NavLink to="/auth/signin">Sign In</NavLink>
       <NavLink to="/auth/signup">Sign Up</NavLink>
     </>
