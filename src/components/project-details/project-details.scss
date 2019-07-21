@@ -1,0 +1,11 @@
+@import '../../assets/styles/helpers/functions';
+
+.project-details {
+  .viewer {
+    height: rem(600px);
+
+    @media all and (max-width: 600px) {
+      height: rem(400px);
+    }
+  }
+}
