@@ -7,7 +7,7 @@ class ApiService {
   }
 
   getProjects = async (query = []) => {
-    let resp = this._firestore.collection('projects');
+    let resp = this._firestore.collection('projects').orderBy('createDate', 'desc');
     query.forEach(value => {
       resp = resp.where(...value);
     });
