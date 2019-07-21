@@ -25,12 +25,13 @@ class Field extends ValidatorComponent {
   }
 
   renderField = ({ props, isValid, getErrorMessage }) => {
-    const { label, ...rest } = props;
+    const { label, className, ...rest } = props;
+    const classNames = `${className} ${!isValid ? 'invalid' : ''}`;
 
     return (
       <div className="input-field">
-        <input {...rest} className={props.className + (!isValid ? ' invalid' : '')} />
-        <label htmlFor="">{label}</label>
+        <input {...rest} className={classNames} />
+        <label htmlFor={props.id}>{label}</label>
         {!isValid ? <span className="helper-text" data-error={getErrorMessage()} /> : null}
       </div>
     );
