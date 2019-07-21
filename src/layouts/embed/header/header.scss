@@ -1,0 +1,14 @@
+@import '../../../assets/styles/helpers/functions';
+
+.Embed-header {
+  position: fixed;
+  top: 0;
+  left: rem(10px);
+  z-index: 999;
+
+  .brand-logo {
+    .logo {
+      width: rem(60px);
+    }
+  }
+}

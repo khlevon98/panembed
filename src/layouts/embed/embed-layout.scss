@@ -1,0 +1,15 @@
+.Embed {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.Embed-content {
+  display: flex;
+  flex: 1 0 auto;
+
+  .section {
+    display: block;
+    width: 100%;
+  }
+}
