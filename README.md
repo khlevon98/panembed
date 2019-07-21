@@ -39,8 +39,8 @@ Front-End
 - ~~Create Sign in and Sign up pages~~
 - ~~Create project create page~~
 - ~~Configure firebase for generate thumbnails~~
-- ~~Create projects lis page~~
-- ~~Create projects detail~~
+- ~~Create projects list page~~
+- ~~Create projects detail page~~
 - ~~Add project delete functionality~~
 
 - ~~Create embed layout~~
@@ -64,7 +64,7 @@ Package manager `npm` or `yarn`
 
 - Prepare `.env` file
 
-  cp .env .env.local
+      cp .env .env.local
 
 - Install Dependencies
 
