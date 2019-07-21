@@ -1,0 +1,12 @@
+@import '../../../assets/styles/helpers/functions';
+
+.Embed-footer {
+  position: fixed;
+  bottom: 0;
+  z-index: 999;
+  right: rem(10px);
+
+  p {
+    white-space: nowrap;
+  }
+}

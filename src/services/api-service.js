@@ -1,13 +1,20 @@
+import { getExtension, getPathFromUrl, makeId } from '../utils';
+
 class ApiService {
   constructor(firestore, firebase) {
     this._firestore = firestore;
     this._firebase = firebase;
   }
 
-  getProjects = async () => {
-    const resp = await this._firestore.collection('projects').get();
+  getProjects = async (query = []) => {
+    let resp = this._firestore.collection('projects');
+    query.forEach(value => {
+      resp = resp.where(...value);
+    });
 
-    return resp.data();
+    resp = await resp.get();
+
+    return resp.docs.map(doc => ({ ...doc.data(), id: doc.id }));
   };
 
   getProject = async (id = null) => {
@@ -19,15 +26,37 @@ class ApiService {
     return resp.data();
   };
 
-  createProject = async (data = {}) => {
-    return this._firestore.collection('projects').add(data);
+  createProject = async ({ title, description, image, ownerId, ownerName } = {}) => {
+    const fileName = `${ownerId}_${makeId(10)}.${getExtension(image.name)}`;
+
+    let resp = await this._firebase.uploadFile('/panoramas', image, undefined, {
+      name: fileName,
+    });
+
+    const imgUrl = await resp.uploadTaskSnapshot.ref.getDownloadURL();
+
+    const thumbUrl = imgUrl.replace(fileName, `thumb-400-${fileName}`);
+
+    resp = await this._firestore.collection('projects').add({
+      createDate: new Date(),
+      image: `${getPathFromUrl(imgUrl)}?alt=media`,
+      thumb: `${getPathFromUrl(thumbUrl)}?alt=media`,
+      title,
+      description,
+      ownerId,
+      ownerName,
+    });
+
+    return resp;
   };
 
   deleteProject = async (id = null) => {
-    return this._firestore
+    const resp = await this._firestore
       .collection('projects')
       .doc(id)
       .delete();
+
+    return resp;
   };
 
   getUser = async (id = null) => {

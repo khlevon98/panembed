@@ -6,7 +6,7 @@ import './header.scss';
 import { Navbar } from 'react-materialize';
 import { NavLink } from 'react-router-dom';
 
-import { DefaultNavigation, AuthNavigation } from '../../../components/navigation';
+import { AuthNavigation, DefaultNavigation } from '../../../components/navigation';
 
 const AppHeader = () => {
   return (

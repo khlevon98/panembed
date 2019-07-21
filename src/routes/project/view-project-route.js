@@ -3,48 +3,71 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ErrorBoundary from '../../components/error-boundary';
+import { fetchProject } from '../../store/actions/project';
+import { compose } from 'redux';
+import { withRouter } from 'react-router';
+
+import ProjectDetails from '../../components/project-details';
+import Spinner from '../../components/spinner';
+import PropTypes from 'prop-types';
+import NotFound from '../../components/not-found';
 
 class ViewProjectRoute extends React.Component {
+  componentDidMount() {
+    this.props.getProject(this.props.match.params.id);
+  }
+
   render() {
+    const {
+      project: { data, isLoaded, error },
+    } = this.props;
+
+    if (!isLoaded) {
+      return <Spinner />;
+    }
+
+    if (!data || error) {
+      return <NotFound />;
+    }
+
     return (
       <section className="section">
         <ErrorBoundary>
-          <div className="row">
-            <form className="col s12">
-              <div className="row">
-                <div className="input-field col s6">
-                  <input placeholder="Placeholder" id="first_name" type="text" className="validate" />
-                  <label htmlFor="first_name">First Name</label>
-                </div>
-                <div className="input-field col s6">
-                  <input id="last_name" type="text" className="validate" />
-                  <label htmlFor="last_name">Last Name</label>
-                </div>
-              </div>
-              <div className="row">
-                <div className="input-field col s12">
-                  <input disabled value="I am not editable" id="disabled" type="text" className="validate" />
-                  <label htmlFor="disabled">Disabled</label>
-                </div>
-              </div>
-              <div className="row">
-                <div className="input-field col s12">
-                  <input id="password" type="password" className="validate" />
-                  <label htmlFor="password">Password</label>
-                </div>
-              </div>
-              <div className="row">
-                <div className="input-field col s12">
-                  <input id="email" type="email" className="validate" />
-                  <label htmlFor="email">Email</label>
-                </div>
-              </div>
-            </form>
-          </div>
+          <ProjectDetails data={data} />
         </ErrorBoundary>
       </section>
     );
   }
 }
 
-export default connect()(ViewProjectRoute);
+ViewProjectRoute.propTypes = {
+  project: PropTypes.shape({
+    isLoaded: PropTypes.bool,
+    error: PropTypes.shape({ message: PropTypes.string }),
+    data: PropTypes.object,
+  }).isRequired,
+  match: PropTypes.shape({ params: PropTypes.object }).isRequired,
+  getProject: PropTypes.func.isRequired,
+};
+
+function mapStateToProps(state) {
+  return {
+    project: state.project.current,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getProject: id => dispatch(fetchProject(id)),
+  };
+}
+
+const enhance = compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  withRouter
+);
+
+export default enhance(ViewProjectRoute);

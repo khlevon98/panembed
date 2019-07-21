@@ -10,145 +10,92 @@ import { Field, Form } from '../../components/validator';
 import ValidatorService from '../../services/validator-service';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
+import { withAuth } from '../../components/hoc-helpers';
 
 class SignUpRoute extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.redirectIf(props.auth.uid);
-
-    this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      rePassword: '',
-    };
-  }
-
-  redirectIf = isAuthorized => {
-    if (isAuthorized) this.props.history.push('/');
+  state = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    rePassword: '',
   };
-
-  componentWillReceiveProps(nextProps) {
-    this.redirectIf(nextProps.auth.uid);
-  }
 
   render() {
     const { auth } = this.props;
 
     return (
-      <section className="section">
-        <ErrorBoundary>
-          <div className="row">
+      <section className="section container">
+        <div className="row">
+          <h2 className="center">Sign Up</h2>
+        </div>
+        <div className="row">
+          <ErrorBoundary>
             <Form className="col s12" onSubmit={this.handleSubmit}>
               <div className="row">
                 <Field
+                  label="First name"
+                  type="text"
+                  name="firstName"
+                  id="field-firstName"
                   value={this.state.firstName}
                   onChange={this.handleChange}
                   validators={[ValidatorService.isRequired().rule]}
                   errorMessages={[ValidatorService.isRequired().message]}
-                >
-                  {({ props, isValid, getErrorMessage }) => {
-                    const className = `${!isValid ? 'invalid' : ''}`;
-                    return (
-                      <div className="input-field col s12">
-                        <input {...props} type="text" name="firstName" id="field-firstName" className={className} />
-                        <label htmlFor="field-firstName">First name</label>
-                        {!isValid ? <span className="helper-text" data-error={getErrorMessage()} /> : null}
-                      </div>
-                    );
-                  }}
-                </Field>
+                />
               </div>
 
               <div className="row">
                 <Field
+                  label="Last name"
+                  type="text"
+                  name="lastName"
+                  id="field-lastName"
                   value={this.state.lastName}
                   onChange={this.handleChange}
                   validators={[ValidatorService.isRequired().rule]}
                   errorMessages={[ValidatorService.isRequired().message]}
-                >
-                  {({ props, isValid, getErrorMessage }) => {
-                    const className = `${!isValid ? 'invalid' : ''}`;
-                    return (
-                      <div className="input-field col s12">
-                        <input {...props} type="text" name="lastName" id="field-lastName" className={className} />
-                        <label htmlFor="field-lastName">Last name</label>
-                        {!isValid ? <span className="helper-text" data-error={getErrorMessage()} /> : null}
-                      </div>
-                    );
-                  }}
-                </Field>
+                />
               </div>
               <div className="row">
                 <Field
+                  label="Email"
+                  type="email"
+                  name="email"
+                  id="field-email"
                   value={this.state.email}
                   onChange={this.handleChange}
                   validators={[ValidatorService.isRequired().rule, ValidatorService.isEmail().rule]}
                   errorMessages={[ValidatorService.isRequired().message, ValidatorService.isEmail().message]}
-                >
-                  {({ props, isValid, getErrorMessage }) => {
-                    const className = `${!isValid ? 'invalid' : ''}`;
-                    return (
-                      <div className="input-field col s12">
-                        <input {...props} type="email" name="email" id="field-email" className={className} />
-                        <label htmlFor="field-email">Email</label>
-                        {!isValid ? <span className="helper-text" data-error={getErrorMessage()} /> : null}
-                      </div>
-                    );
-                  }}
-                </Field>
+                />
               </div>
 
               <div className="row">
                 <Field
+                  label="Password"
+                  type="password"
+                  name="password"
+                  id="field-password"
                   value={this.state.password}
                   onChange={this.handleChange}
                   validators={[ValidatorService.isRequired().rule]}
                   errorMessages={[ValidatorService.isRequired().message]}
-                >
-                  {({ props, isValid, getErrorMessage }) => {
-                    const className = `${!isValid ? 'invalid' : ''}`;
-
-                    return (
-                      <div className="input-field col s12">
-                        <input {...props} type="password" name="password" id="field-password" className={className} />
-                        <label htmlFor="field-password">Password</label>
-                        {!isValid ? <span className="helper-text" data-error={getErrorMessage()} /> : null}
-                      </div>
-                    );
-                  }}
-                </Field>
+                />
               </div>
               <div className="row">
                 <Field
+                  label="Reenter password"
+                  type="password"
+                  name="rePassword"
+                  id="field-rePassword"
                   value={this.state.rePassword}
                   onChange={this.handleChange}
                   validators={[ValidatorService.isPasswordMatch(this.state.password).rule]}
                   errorMessages={[ValidatorService.isPasswordMatch(this.state.password).message]}
-                >
-                  {({ props, isValid, getErrorMessage }) => {
-                    const className = `${!isValid ? 'invalid' : ''}`;
-
-                    return (
-                      <div className="input-field col s12">
-                        <input
-                          {...props}
-                          type="password"
-                          name="rePassword"
-                          id="field-rePassword"
-                          className={className}
-                        />
-                        <label htmlFor="field-rePassword">Password</label>
-                        {!isValid ? <span className="helper-text" data-error={getErrorMessage()} /> : null}
-                      </div>
-                    );
-                  }}
-                </Field>
+                />
               </div>
 
-              <div className="row">
+              <div className="row center">
                 <button type="submit" className="btn btn-large w-100" disabled={!auth.isLoaded}>
                   Sign Up
                 </button>
@@ -166,8 +113,8 @@ class SignUpRoute extends React.Component {
                 </div>
               ) : null}
             </Form>
-          </div>
-        </ErrorBoundary>
+          </ErrorBoundary>
+        </div>
       </section>
     );
   }
@@ -189,22 +136,10 @@ SignUpRoute.propTypes = {
     uid: PropTypes.string,
     isLoaded: PropTypes.bool,
     error: PropTypes.shape({ fields: PropTypes.arrayOf(PropTypes.object), message: PropTypes.string }),
-    // user: PropTypes.object,
   }).isRequired,
   signUp: PropTypes.func.isRequired,
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
 };
-
-function mapStateToProps(state) {
-  return {
-    auth: {
-      ...state.firebase.auth,
-      isLoaded: state.firebase.auth.isLoaded && state.auth.isLoaded,
-      error: state.auth.error,
-      // user: state.firebase.profile,
-    },
-  };
-}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -214,10 +149,14 @@ function mapDispatchToProps(dispatch) {
 
 const enhance = compose(
   connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
   ),
-  withRouter
+  withRouter,
+  withAuth({
+    render: false,
+    redirectTo: '/',
+  })
 );
 
 export default enhance(SignUpRoute);

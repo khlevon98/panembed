@@ -12,4 +12,6 @@ const DefaultNavigation = () => {
   );
 };
 
-export default withAuth(false)(DefaultNavigation);
+export default withAuth({
+  render: false,
+})(DefaultNavigation);

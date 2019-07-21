@@ -10,78 +10,53 @@ import { withRouter } from 'react-router-dom';
 
 import { authenticateUser } from '../../store/actions/auth';
 
-import { Form, Field } from '../../components/validator';
+import { Field, Form } from '../../components/validator';
 import ErrorBoundary from '../../components/error-boundary';
 import ValidatorService from '../../services/validator-service';
+import { withAuth } from '../../components/hoc-helpers';
 
 class SignInRoute extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.redirectIf(props.auth.uid);
-
-    this.state = {
-      email: '',
-      password: '',
-    };
-  }
-
-  redirectIf = isAuthorized => {
-    if (isAuthorized) this.props.history.push('/');
+  state = {
+    email: '',
+    password: '',
   };
-
-  componentWillReceiveProps(nextProps, nextContext) {
-    this.redirectIf(nextProps.auth.uid);
-  }
 
   render() {
     const { auth } = this.props;
 
     return (
-      <section className="section">
-        <ErrorBoundary>
-          <div className="row">
+      <section className="section container">
+        <div className="row">
+          <h2 className="center">Sign In</h2>
+        </div>
+        <div className="row">
+          <ErrorBoundary>
             <Form className="col s12" onSubmit={this.handleSubmit}>
               <div className="row">
                 <Field
+                  label="Email"
+                  type="email"
+                  name="email"
+                  id="field-email"
                   value={this.state.email}
                   onChange={this.handleChange}
                   validators={[ValidatorService.isRequired().rule, ValidatorService.isEmail().rule]}
                   errorMessages={[ValidatorService.isRequired().message, ValidatorService.isEmail().message]}
-                >
-                  {({ props, isValid, getErrorMessage }) => {
-                    const className = `${!isValid ? 'invalid' : ''}`;
-                    return (
-                      <div className="input-field col s12">
-                        <input {...props} type="email" name="email" id="field-email" className={className} />
-                        <label htmlFor="field-email">Email</label>
-                        {!isValid ? <span className="helper-text" data-error={getErrorMessage()} /> : null}
-                      </div>
-                    );
-                  }}
-                </Field>
+                />
               </div>
               <div className="row">
                 <Field
+                  label="Password"
+                  type="password"
+                  name="password"
+                  id="field-password"
                   value={this.state.password}
                   onChange={this.handleChange}
                   validators={[ValidatorService.isRequired().rule]}
                   errorMessages={[ValidatorService.isRequired().message]}
-                >
-                  {({ props, isValid, getErrorMessage }) => {
-                    const className = `${!isValid ? 'invalid' : ''}`;
-
-                    return (
-                      <div className="input-field col s12">
-                        <input {...props} type="password" name="password" id="field-password" className={className} />
-                        <label htmlFor="field-password">Password</label>
-                        {!isValid ? <span className="helper-text" data-error={getErrorMessage()} /> : null}
-                      </div>
-                    );
-                  }}
-                </Field>
+                />
               </div>
-              <div className="row">
+              <div className="row center">
                 <button type="submit" className="btn btn-large w-100" disabled={!auth.isLoaded}>
                   Sign Up
                 </button>
@@ -99,8 +74,8 @@ class SignInRoute extends React.Component {
                 </div>
               ) : null}
             </Form>
-          </div>
-        </ErrorBoundary>
+          </ErrorBoundary>
+        </div>
       </section>
     );
   }
@@ -122,22 +97,10 @@ SignInRoute.propTypes = {
     uid: PropTypes.string,
     isLoaded: PropTypes.bool,
     error: PropTypes.shape({ fields: PropTypes.arrayOf(PropTypes.object), message: PropTypes.string }),
-    // user: PropTypes.object,
   }).isRequired,
   signIn: PropTypes.func.isRequired,
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
 };
-
-function mapStateToProps(state) {
-  return {
-    auth: {
-      ...state.firebase.auth,
-      isLoaded: state.firebase.auth.isLoaded && state.auth.isLoaded,
-      error: state.auth.error,
-      // user: state.firebase.profile,
-    },
-  };
-}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -147,10 +110,14 @@ function mapDispatchToProps(dispatch) {
 
 const enhance = compose(
   connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
   ),
-  withRouter
+  withRouter,
+  withAuth({
+    render: false,
+    redirectTo: '/',
+  })
 );
 
 export default enhance(SignInRoute);

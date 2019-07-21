@@ -14,6 +14,8 @@
     "url": "https://github.com/khlevon98/panembed/issues"
   },
   "dependencies": {
+    "360-image-viewer": "khlevon98/360-image-viewer#master",
+    "canvas-fit": "1.5.0",
     "connected-react-router": "6.5.2",
     "firebase": "6.3.0",
     "history": "4.9.0",
@@ -23,6 +25,7 @@
     "react-app-rewired": "2.1.3",
     "react-dom": "npm:@hot-loader/react-dom",
     "react-form-validator-core": "0.6.4",
+    "react-lazy-load": "3.0.13",
     "react-materialize": "3.3.3",
     "react-redux": "7.1.0",
     "react-redux-firebase": "2.3.0",

@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { Redirect } from 'react-router-dom';
+
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
-const withAuth = (render = true) => View => {
+const withAuth = ({ render = true, redirectTo = null } = {}) => View => {
   function mapStateToProps(state) {
     return {
       auth: {
-        uid: state.firebase.auth.uid,
+        ...state.firebase.auth,
+        isLoaded: state.firebase.auth.isLoaded && state.auth.isLoaded,
+        error: state.auth.error,
+        user: state.firebase.profile,
       },
     };
   }
@@ -28,6 +33,9 @@ const withAuth = (render = true) => View => {
       static propTypes = {
         auth: PropTypes.shape({
           uid: PropTypes.string,
+          isLoaded: PropTypes.bool,
+          error: PropTypes.shape({ fields: PropTypes.arrayOf(PropTypes.object), message: PropTypes.string }),
+          user: PropTypes.shape({}),
         }).isRequired,
       };
 
@@ -36,10 +44,14 @@ const withAuth = (render = true) => View => {
       }
 
       render() {
-        if (!render) {
-          return !this.state.isAuthorized ? <View {...this.props} /> : null;
+        const { isAuthorized } = this.state;
+        let result = redirectTo ? <Redirect to={redirectTo} /> : null;
+
+        if ((isAuthorized && render) || (!render && !isAuthorized)) {
+          result = <View {...this.props} />;
         }
-        return this.state.isAuthorized ? <View {...this.props} /> : null;
+
+        return result;
       }
     }
   );

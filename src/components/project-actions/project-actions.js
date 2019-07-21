@@ -4,23 +4,24 @@ import PropTypes from 'prop-types';
 
 import { Divider, Dropdown } from 'react-materialize';
 
-const ProjectActions = ({ children, projectOwnerId, user, ...rest }) => {
-  const isUserProjectOwner = projectOwnerId === user.id;
+const ProjectActions = ({ children, projectOwnerId, userId, onGet, onDelete, ...rest }) => {
+  const isUserProjectOwner = projectOwnerId === userId;
 
   let actions = [
-    <a href="#!" key="get_embed">
+    <a href="#!" onClick={onGet} key="get_embed">
       Get
     </a>,
   ];
+
+  /* <a href="#!" key="edit_project">
+        Edit
+      </a>, */
 
   if (isUserProjectOwner) {
     actions = [
       ...actions,
       <Divider key="divider" />,
-      <a href="#!" key="edit_project">
-        Edit
-      </a>,
-      <a href="#!" className="red-text" key="delete_project">
+      <a href="#!" onClick={onDelete} className="red-text" key="delete_project">
         Delete
       </a>,
     ];
@@ -33,16 +34,14 @@ const ProjectActions = ({ children, projectOwnerId, user, ...rest }) => {
   );
 };
 
-ProjectActions.defaultProps = {
-  user: {
-    id: '1',
-  },
-};
+ProjectActions.defaultProps = { userId: '' };
 
 ProjectActions.propTypes = {
   children: PropTypes.node.isRequired,
-  user: PropTypes.shape({}),
   projectOwnerId: PropTypes.string.isRequired,
+  userId: PropTypes.string,
+  onGet: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default ProjectActions;

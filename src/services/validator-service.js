@@ -1,3 +1,5 @@
+import { bytesToMB } from '../utils';
+
 class ValidatorService {
   constructor(props) {
     throw new Error('This si abstract class');
@@ -16,6 +18,21 @@ class ValidatorService {
   static isPasswordMatch = value => ({
     rule: `isPasswordMatch:${value}`,
     message: 'Please reenter your password.',
+  });
+
+  static isFile = () => ({
+    rule: `isFile`,
+    message: 'Please provide correct file.',
+  });
+
+  static maxFileSize = value => ({
+    rule: `maxFileSize:${value}`,
+    message: `File size must not exceed ${bytesToMB(value)}MB.`,
+  });
+
+  static allowedExtensions = value => ({
+    rule: `allowedExtensions:${value}`,
+    message: 'Please choose correct file.',
   });
 }
 
