@@ -23,7 +23,7 @@ const CreateProjectRoute = ({ auth: { uid, user }, project: { isLoaded, error },
   const [state, setState] = useState({
     title: '',
     description: '',
-    imageFile: '',
+    imageFile: undefined,
   });
 
   const handleChange = e => {
@@ -70,6 +70,7 @@ const CreateProjectRoute = ({ auth: { uid, user }, project: { isLoaded, error },
           description: '',
           imageFile: '',
         });
+
       } /* else if (error) {
         // delete error case
         // console.log('error', error);

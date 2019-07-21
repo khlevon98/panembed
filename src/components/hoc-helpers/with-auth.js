@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import Spinner from '../spinner';
 
 const withAuth = ({ render = true, redirectTo = null } = {}) => View => {
   function mapStateToProps(state) {
@@ -22,14 +23,6 @@ const withAuth = ({ render = true, redirectTo = null } = {}) => View => {
 
   return enhance(
     class extends Component {
-      constructor(props) {
-        super(props);
-
-        this.state = {
-          isAuthorized: !!props.auth.uid,
-        };
-      }
-
       static propTypes = {
         auth: PropTypes.shape({
           uid: PropTypes.string,
@@ -39,12 +32,17 @@ const withAuth = ({ render = true, redirectTo = null } = {}) => View => {
         }).isRequired,
       };
 
-      componentWillReceiveProps(nextProps) {
-        this.setState({ isAuthorized: !!nextProps.auth.uid });
-      }
-
       render() {
-        const { isAuthorized } = this.state;
+        const {
+          auth: { isLoaded, uid },
+        } = this.props;
+
+        const isAuthorized = !!uid;
+
+        if (!isLoaded) {
+          return <Spinner />;
+        }
+
         let result = redirectTo ? <Redirect to={redirectTo} /> : null;
 
         if ((isAuthorized && render) || (!render && !isAuthorized)) {
