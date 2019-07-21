@@ -5,10 +5,12 @@ import { Switch } from 'react-router-dom';
 
 import Home from './home';
 import { SignIn, SignUp } from './auth';
-import { CreateProject, ViewProject } from './project';
-import NotFound from './error';
+import { CreateProject, ViewMyProjects, ViewProject } from './project';
+import Embed from './embed';
+import Error from './error';
 
 import { RouteWithMainLayout } from '../layouts/main';
+import { RouteWithEmbedLayout } from '../layouts/embed';
 
 const AppRoutes = ({ history }) => {
   return (
@@ -20,11 +22,15 @@ const AppRoutes = ({ history }) => {
 
         <RouteWithMainLayout path="/auth/signup" component={SignUp} exact />
 
-        <RouteWithMainLayout path="/project/create" component={CreateProject} exact />
+        <RouteWithMainLayout path="/projects/my" component={ViewMyProjects} exact />
 
-        <RouteWithMainLayout path="/project/:id" component={ViewProject} exact />
+        <RouteWithMainLayout path="/projects/create" component={CreateProject} exact />
 
-        <RouteWithMainLayout component={NotFound} />
+        <RouteWithMainLayout path="/projects/:id" component={ViewProject} exact />
+
+        <RouteWithEmbedLayout path="/embed/:id" component={Embed} exact />
+
+        <RouteWithMainLayout component={Error} />
       </Switch>
     </ConnectedRouter>
   );
