@@ -33,9 +33,9 @@ class PanViewer extends PureComponent {
     this.viewer.start();
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentWillReceiveProps(nextProps) {
     const { src } = this.props;
-    if (src !== prevProps.src) {
+    if (src !== nextProps.src) {
       this.setState({
         isLoaded: false,
         isShownHelper: true,
