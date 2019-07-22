@@ -20,7 +20,6 @@ const ProjectActions = ({ children, projectOwnerId, userId, onGetCode, onDelete,
   if (isUserProjectOwner) {
     actions = [
       ...actions,
-      <Divider key="divider" />,
       <a href="#!" onClick={onDelete} className="red-text" key="delete_project">
         Delete
       </a>,
